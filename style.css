@@ -1,0 +1,847 @@
+  /* Universal box-sizing for consistent layout */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Body styling with a subtle gradient background and default font */
+        body {
+          background: linear-gradient(to right, #ADBBDA 0%, #EDE8F5 50%, #ADBBDA 100%);
+            font-family: 'Lato', sans-serif;
+            color: #333;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            min-height: 100vh; /* Ensure body takes full viewport height */
+        }
+
+        /* Navigation styles - full screen overlay menu */
+        .wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95); /* Semi-transparent dark overlay */
+            clip-path: circle(25px at calc(100% - 45px) 45px); /* Initial clipped state for menu button */
+            transition: all 0.4s ease-in-out; /* Smooth transition for menu expansion */
+            z-index: 100; /* Ensure menu is above other content */
+        }
+
+        /* Expand menu when checkbox is active */
+        #active:checked ~ .wrapper {
+            clip-path: circle(150% at calc(100% - 45px) 45px); /* Expand circle to reveal menu */
+        }
+
+        /* Menu button styling */
+        .menu-btn {
+            position: fixed;
+            z-index: 101; /* Above the wrapper */
+            right: 20px;
+            top: 20px;
+            height: 50px;
+            width: 50px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 50%; /* Circular button */
+            font-size: 20px;
+            color: #fff;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.8);
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* Subtle shadow */
+        }
+
+        /* Menu button hover effect */
+        .menu-btn:hover {
+            background: #3b82f6; /* Blue background on hover */
+            transform: rotate(90deg); /* Rotate icon on hover */
+        }
+
+        /* Change menu icon to 'X' when active */
+        #active:checked ~ .menu-btn i:before {
+            content: "\f00d"; /* Font Awesome 'X' icon */
+        }
+
+        /* Menu list positioning */
+        .wrapper ul {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Center the list */
+            list-style: none; /* Remove bullet points */
+            text-align: center;
+        }
+
+        /* Menu list item styling and initial hidden state */
+        .wrapper ul li {
+            margin: 25px 0;
+            opacity: 0; /* Initially hidden */
+            transform: translateY(30px); /* Slide up animation */
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        /* Animate menu list items into view when menu is active */
+        #active:checked ~ .wrapper ul li {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered animation for menu items */
+        .wrapper ul li:nth-child(1) { transition-delay: 0.1s; }
+        .wrapper ul li:nth-child(2) { transition-delay: 0.2s; }
+        .wrapper ul li:nth-child(3) { transition-delay: 0.3s; }
+        .wrapper ul li:nth-child(4) { transition-delay: 0.4s; }
+        .wrapper ul li:nth-child(5) { transition-delay: 0.5s; }
+
+        /* Menu link styling */
+        .wrapper ul li a {
+            text-decoration: none;
+            font-size: 30px;
+            font-weight: 500;
+            padding: 8px 40px;
+            color: #fff;
+            border-radius: 50px; /* Pill-shaped buttons */
+            background: rgba(0, 0, 0, 0.7);
+            position: relative;
+            line-height: 50px;
+            transition: all 0.3s ease;
+            font-family: 'Oswald', sans-serif;
+            display: inline-block;
+            min-width: 220px; /* Ensure consistent width */
+            overflow: hidden; /* Hide overflow for gradient animation */
+        }
+
+        /* Gradient hover effect for menu links */
+        .wrapper ul li a:after {
+            position: absolute;
+            content: "";
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6); /* Blue to purple gradient */
+            width: 104%;
+            height: 110%;
+            left: -2%;
+            top: -5%;
+            border-radius: 50px;
+            transform: scaleY(0); /* Initially hidden */
+            z-index: -1;
+            animation: rotate 1.5s linear infinite; /* Continuous hue rotation */
+            transition: transform 0.3s ease; /* Smooth scale transition */
+        }
+
+        /* Show gradient on hover */
+        .wrapper ul li a:hover:after {
+            transform: scaleY(1);
+        }
+
+        /* Hide the checkbox input */
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        /* Keyframe animation for hue rotation */
+        @keyframes rotate {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        /* Header Content Section */
+        .header-content {
+            text-align: center;
+            padding: 140px 20px 60px;
+            background-image: url(https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop);
+            border-radius: 20px; /* Rounded corners */
+            background-size: cover;
+            box-shadow: 2px 4px 20px rgba(0,0,0,0.5); /* Soft shadow */
+            margin-bottom: 50px;
+            margin: 10px;
+            position: relative;
+            overflow: hidden;
+            display: flex; /* Use flexbox for centering keyboard */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Abstract background pattern for header */
+        .header-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* SVG data URL for a subtle geometric pattern */
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="0,0 100,0 100,100" fill="rgba(255,255,255,0.2)"/></svg>');
+            background-size: cover;
+            opacity: 0.2;
+        }
+
+        /* Header title styling */
+        .header-content .title {
+            font-size: 4rem;
+            font-weight: 800;
+            font-family: 'Oswald', sans-serif;
+            color: #1e293b; /* Dark blue-gray */
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle text shadow */
+            position: relative;
+            z-index: 2; /* Ensure text is above background pattern */
+        }
+
+        /* Header paragraph styling */
+        .header-content p {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #334155; /* Medium blue-gray */
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Portfolio Grid Section */
+        .portfolio-section {
+            padding: 0 20px 80px;
+            max-width:auto;
+            background: rgba(255, 255, 255, 0.2); /* semi-transparent white */
+            margin: 1%; /* Center the section */
+            border-radius: 20px; /* Rounded corners;*/
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* subtle soft shadow */
+
+        }
+
+        /* Section title styling */
+        .section-title {
+            text-align: center;
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.8rem;
+            color: #1e293b;
+            margin-bottom: 60px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        /* Underline effect for section title */
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(to right, #3b82f6, #8b5cf6); /* Blue to purple gradient */
+            margin: 15px auto 0;
+            border-radius: 3px;
+        }
+
+        /* Grid layout for portfolio items */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* Responsive grid columns */
+            gap: 35px; /* Spacing between grid items */
+        }
+
+        /* Individual portfolio item styling */
+        .portfolio-item {
+            background: white;
+            border-radius: 16px; /* Rounded corners */
+            overflow: hidden; /* Hide overflowing content like image zoom */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); /* Soft shadow */
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Smooth transition for hover effects */
+            opacity: 0; /* Initially hidden for scroll animation */
+            transform: translateY(35px); /* Slide up for scroll animation */
+            transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.3s ease;
+        }
+        #image1{
+            max-height: fit-content;
+        }
+        /* Make portfolio item visible when in viewport */
+        .portfolio-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Image container for overflow hidden */
+        .portfolio-img-container {
+            position: relative;
+            height: 280px; /* Kept fixed height as per original test.html, but aspect-ratio is a good alternative */
+            overflow: hidden;
+            cursor: pointer; /* Indicate clickable image */
+        }
+
+        /* Portfolio image styling */
+        .portfolio-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Crop image to fit container */
+            display: block;
+            transition: transform 0.8s ease; /* Smooth zoom effect */
+        }
+
+        /* Image zoom on hover - now applies only to image container hover */
+        .portfolio-img-container:hover .portfolio-img {
+            transform: scale(1.1);
+        }
+
+        /* Overlay for download button */
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(59, 130, 246, 0.8), transparent); /* Gradient overlay */
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.4s ease;
+            display: flex;
+            align-items: flex-end; /* Align button to bottom */
+            padding: 20px;
+            pointer-events: none; /* Allow clicks to pass through to image */
+        }
+
+        /* Show overlay on hover - now applies only to image container hover */
+        .portfolio-img-container:hover .portfolio-overlay {
+            opacity: 1;
+            pointer-events: auto; /* Enable pointer events on hover */
+        }
+
+        /* Download button styling */
+        .download-button {
+            background: white;
+            color: #3b82f6; /* Blue text */
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Space between icon and text */
+        }
+
+        /* Download button hover effect */
+        .download-button:hover {
+            background: #3b82f6;
+            color: white;
+        }
+
+        /* Icon inside download button */
+        .download-button i {
+            font-size: 1.1em;
+        }
+
+        /* Portfolio content area */
+        .portfolio-content {
+            padding: 25px;
+        }
+
+        /* Portfolio title styling */
+        .portfolio-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.7rem;
+            color: #1e293b;
+            margin: 0 0 15px;
+        }
+
+        /* Portfolio description styling */
+        .portfolio-description {
+            color: #475569; /* Darker gray */
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        /* Tags container */
+        .portfolio-tags {
+            display: flex;
+            flex-wrap: wrap; /* Allow tags to wrap to next line */
+            gap: 10px;
+        }
+
+        /* Individual tag styling */
+        .tag {
+            background: #e0f2fe; /* Light blue background */
+            color: #0369a1; /* Darker blue text */
+            padding: 6px 15px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        /* Tag hover effect */
+        .tag:hover {
+            background: #3b82f6;
+            color: white;
+            transform: translateY(-3px); /* Slight lift on hover */
+        }
+
+        /* Footer Section */
+        footer {
+            padding: 0 20px 80px;
+            max-width:auto;
+            background: rgba(39, 32, 139, 0.863); /* semi-transparent white */
+            margin: 1%; /* Center the section */
+            border-radius: 20px; /* Rounded corners;*/
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* subtle soft shadow */
+            text-align: center;
+            text-decoration-color: #181717;
+        }
+
+        /* Footer content wrapper */
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Footer logo styling */
+        .footer-logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text; /* Clip background to text */
+            -webkit-text-fill-color: transparent; /* Make text transparent to show background */
+            display: inline-block;
+        }
+
+        /* Footer text styling */
+        .footer-text {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: #cbd5e1; /* Light gray */
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* Social links container */.social-links {
+          display: flex;
+          justify-content: center;
+          gap: 25px;
+          margin: 30px 0 40px;
+        }
+
+        /* Individual social icon styling */
+        .social-icon {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 55px;
+          height: 55px;
+          background: rgba(255,255,255,0.08); /* Semi-transparent white background */
+          border-radius: 50%;
+          color: white;
+          font-size: 1.4rem;
+          transition: all 0.5s ease;
+        }
+
+        /* Base hover effect */
+        .social-icon:hover {
+          transform: translateY(-5px) scale(1.1); /* Lift and enlarge on hover */
+        }
+
+        /* Instagram */
+        #ins:hover {
+          background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+          box-shadow: 0 4px 12px rgba(221, 42, 123, 0.4),
+                      0 6px 20px rgba(129, 52, 175, 0.3),
+                      0 8px 28px rgba(81, 91, 212, 0.2);
+        }
+
+        /* GitHub */
+        #git:hover {
+          background: linear-gradient(135deg, #181717, #2e2e2e);
+          box-shadow: 0 0 10px #181717,
+                      0 0 20px #2e2e2e,
+                      0 0 30px #181717;
+        }
+
+        /* LinkedIn */
+        #link:hover {
+          background: linear-gradient(45deg, #0077b5, #005983);
+          box-shadow: 0 4px 12px rgba(0, 119, 181, 0.4),
+                      0 6px 20px rgba(0, 89, 131, 0.3);
+        }
+
+        /* Pinterest */
+        #pint:hover {
+          background: linear-gradient(45deg, #e60023, #c2001b);
+          box-shadow: 0 4px 12px rgba(230, 0, 35, 0.4), 
+                      0 6px 20px rgba(255, 75, 92, 0.3);
+        }
+
+        /* Copyright text styling */
+        .copyright {
+            color: #94a3b8; /* Lighter gray */
+            font-size: 1rem;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1); /* Top border */
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0; /* Initially hidden */
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            z-index: 99;
+        }
+
+        /* Make scroll to top button visible */
+        .scroll-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Image Modal Styles */
+        .image-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px); /* Adjust the pixel value for more or less blur */
+            /* Alternative for potentially better performance or older browser support: */
+            /* background-color: rgba(54, 45, 45, 0.4); */
+            background-color: rgba(54, 45, 45, 0.1); /* A very light overlay to tint the blur */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 102; /* Above everything else */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.4s ease; /* Increased transition duration */
+        }
+
+        .image-modal.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .image-modal-content {
+            position: relative;
+            max-width: 52%;
+            max-height: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-modal-content img {
+            max-width: 52%;
+            max-height: 90%;
+            border-radius: 20px; /* Rounder corners */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7); /* Enhanced shadow */
+            transform: scale(0.6); /* Decreased initial scale */
+            filter: blur(10px); /* Initial blur for motion effect */
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), filter 0.4s ease; /* Springy scale and blur transition */
+        }
+
+        .image-modal.visible .image-modal-content img {
+            transform: scale(1); /* Scale to full size when visible */
+            filter: blur(0); /* Remove blur when visible */
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .modal-close-btn:hover {
+            color: #ff6b6b;
+            transform: rotate(90deg);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 900px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust grid for smaller screens */
+            }
+
+            .header-content .title {
+                font-size: 3rem; /* Smaller title font */
+            }
+
+            .header-content p {
+                font-size: 1.5rem; /* Smaller paragraph font */
+            }
+        }
+
+        @media (max-width: 600px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr; /* Single column layout on very small screens */
+            }
+
+            .header-content {
+                padding: 100px 15px 40px; /* Adjust header padding */
+            }
+
+            .header-content .title {
+                font-size: 2.5rem;
+            }
+
+            .header-content p {
+                font-size: 1.3rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .wrapper ul li a {
+                font-size: 24px;
+                padding: 6px 30px;
+            }
+
+            .modal-close-btn {
+                top: 10px;
+                right: 10px;
+                font-size: 2rem;
+            }
+        }
+
+        /* Keyboard Animation Styles */
+        .keyboard {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px; /* Space between header text and keyboard */
+        }
+
+        .key {
+            font-size: 15vw; /* Responsive font size */
+            font-family: 'Oswald', sans-serif; /* Using Oswald for keys for consistency */
+            font-weight: 600;
+            display: inline-block;
+            letter-spacing: -1vw;
+            transition: transform 0.2s;
+            color: #55657e; /* Dark color for keys */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);;
+        }
+        .blur{
+        border-radius: 25px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(4px);
+        border: 1px solid rgba(255, 255, 255, 0.13);
+        padding-right: 2%;
+        padding-bottom: 2.6%;
+        width: auto;
+        height: auto;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        }
+        @keyframes pressDown1 {
+            30%, 40%, 100% { transform: translateY(0); }
+            35% { transform: translateY(10px); }
+        }
+        @keyframes pressDown2 {
+            70%, 80%, 100% { transform: translateY(0); }
+            75% { transform: translateY(10px); }
+        }
+        @keyframes pressDown3 {
+            30%, 40%, 100% { transform: translateY(0); }
+            35% { transform: translateY(10px); }
+        }
+        @keyframes pressDown4 {
+            40%, 50%, 100% { transform: translateY(0); }
+            45% { transform: translateY(10px); }
+        }
+        @keyframes pressDown5 {
+            20%, 30%, 100% { transform: translateY(0); }
+            25% { transform: translateY(10px); }
+        }
+        @keyframes pressDown6 {
+            60%, 70%, 100% { transform: translateY(0); }
+            65% { transform: translateY(10px); }
+        }
+        @keyframes pressDown7 {
+            10%, 20%, 100% { transform: translateY(0); }
+            15% { transform: translateY(10px); }
+        }
+        @keyframes pressDown8 {
+            35%, 45%, 100% { transform: translateY(0); }
+            40% { transform: translateY(10px); }
+        }
+
+        .key:nth-child(1) { animation: pressDown1 2s infinite; }
+        .key:nth-child(2) { animation: pressDown2 3s infinite; }
+        .key:nth-child(3) { animation: pressDown3 4s infinite; }
+        .key:nth-child(4) { animation: pressDown4 2.5s infinite; }
+        .key:nth-child(5) { animation: pressDown5 2.5s infinite; }
+        .key:nth-child(6) { animation: pressDown6 3.5s infinite; }
+        .key:nth-child(7) { animation: pressDown7 2.2s infinite; }
+        .key:nth-child(8) { animation: pressDown8 3.2s infinite; }
+
+        /* hover pixelnest*/
+        @font-face {
+          font-family: "WHOA Spine Minimum";
+          src: url("https://assets.codepen.io/174183/WHOA-Variable-Spine-v0.3.ttf")
+            format("truetype");
+          font-weight: normal;
+          font-style: normal;
+        }
+
+        @font-face {
+          font-family: "WHOA Top Minimum";
+          src: url("https://assets.codepen.io/174183/WHOA-Variable-Top-v0.3.ttf")
+            format("truetype");
+          font-weight: normal;
+          font-style: normal;
+        }
+
+
+        .text {
+          text-transform: uppercase;
+          font-size: 1.5rem;
+          max-width: 25%;
+        }
+
+        .text .s1 {
+          display: block;
+          cursor: url("https://assets.codepen.io/174183/spiral_1.png"), auto;
+          font-family: "WHOA Top Minimum";
+          font-variation-settings: "hrzn" 0, "vert" 0, "rota" 0, "zoom" 0;
+          font-weight: normal;
+          font-size: clamp(10rem, 106.7vw - 36.7rem, 8rem);
+          position: relative;
+          line-height: 0.5;
+          margin: 0 0 0 1rem;
+        }
+
+        .text .s1::before {
+          content: "Hamma";
+          font-family: "WHOA Spine Minimum";
+          font-variation-settings: "hrzn" 0, "vert" 0, "rota" 0, "zoom" 0;
+          font-size: 7rem;
+          position: absolute;
+          top: 0;
+          z-index: -1;
+          left: 0;
+        }
+
+        .text .s1:hover,
+        .text .s1:hover::before {
+          font-variation-settings: "hrzn" 820, "vert" -1000, "rota" 59, "zoom" 820;
+          transition: all 1000ms cubic-bezier(0.42, 0, 0.11, 1.43);
+        }
+
+        .text .s1:hover {
+          -webkit-text-stroke: 1px white;
+        }
+        /*footer */
+        
+        /* Show More/Less Button Styles */
+        .description-toggle {
+            display: block;
+            width: 150px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 12px;
+            font-family: sans-serif;
+            text-decoration: none;
+            color: #333;
+            border: 2px solid #333;
+            letter-spacing: 2px;
+            text-align: center;
+            position: relative;
+            transition: all .35s;
+            background: transparent;
+            cursor: pointer;
+            margin-top: 15px;
+            margin: 10px;
+            border-radius: 12px;
+
+        }
+
+        .description-toggle span {
+            position: relative;
+            z-index: 2;
+        }
+
+        .description-toggle:after {
+            position: absolute;
+            content: "";
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: #3b82f6;
+            border-radius: 10px;
+            transition: all .35s;
+        }
+
+        .description-toggle:hover {
+            color: #fff;
+        }
+
+        .description-toggle:hover:after {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Portfolio description container */
+        .portfolio-description-container {
+            max-height: 85px; /* Show about 3 lines of text */
+            overflow: hidden;
+            transition: max-height 0.7s cubic-bezier(0.645, 0.045, 0.355, 1);
+            position: relative;
+        }
+
+        .portfolio-description-container.expanded {
+            max-height: 1000px;
+            
+        }
+
+        /* Gradient overlay for collapsed state */
+        .portfolio-description-container:not(.expanded)::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        /* alert*/
+        #alert{
+            color: red;
+        }
+
+        /*par*/
+        #par{
+            opacity: 0.8;
+            filter: blur(0.04rem);
+            color: #ecffee;
+            position:absolute;
+            bottom: 10%;
+            font-size: 1.2rem;
+
+        }
