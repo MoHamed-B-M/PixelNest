@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Auralis - Royalty-Free Ambient Music</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Manrope:wght@400;700;800&display=swap&font-display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="music.css" />
+    </head>
+    <body>
+        <div class="bg-blob"></div>
+        <div class="bg-blob"></div>
+
+        <header>
+            <div
+                class="wrap"
+                style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 16px;
+                "
+            >
+                <a class="brand" href="#top">
+                    <div class="logo" aria-hidden="true"></div>
+                    <div>
+                        <div class="title">Auralis</div>
+                        <div class="tag">Royalty‑free ambient tracks</div>
+                    </div>
+                </a>
+                <nav style="display: flex; gap: 10px; align-items: center">
+                    <a class="pill"  href="#library" id="pi">Library</a>
+                    <a class="pill"  href="#about" id="pi">About</a>
+                    <nav id="nav1" style="display: sticky; top: 10%;">
+                        <a
+                            href="music.html"
+                            class="nav-button music-btn page-transition-link"
+                            id="nav-button1"
+                            >🎵 Auralis</a
+                        >
+                        <a
+                            href="Index.html"
+                            class="nav-button photos-btn page-transition-link"
+                            id="nav-button2"
+                            >📷 PixelNest</a
+                        >
+                    </nav>
+                </nav>
+            </div>
+        </header>
+
+        <section class="hero" id="top">
+            <h1>Stay Focused with Calming, Royalty-Free Sounds</h1>
+            <p>
+                Let soft ambient waves guide your focus as you work or study.
+                Download freely for your personal creations with a single click.
+                Velvet-smooth animations, graceful hovers, and a living dark
+                gradient paint the perfect mood.
+            </p>
+            <div class="pillbar">
+                <span class="pill">Calm</span>
+                <span class="pill">Ambient</span>
+                <span class="pill">Lo‑Fi</span>
+                <span class="pill">Focus</span>
+            </div>
+        </section>
+
+        <main id="library" class="grid wrap">
+            <article class="card fade-in" data-src="Media/audio1.wav">
+                <div class="video-container">
+                    <video loop muted playsinline poster="image_f7752e.png">
+                        <source src="Media/video1.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="meta">
+                    <div class="thumb" aria-hidden="true"></div>
+                    <div>
+                        <div class="titleRow">
+                            <h3 class="t">Serene Morning</h3>
+                            <span class="tag">3:12 · Calm Ambient</span>
+                        </div>
+                        <div class="tag">By Freelance Sounds</div>
+                    </div>
+                </div>
+                <audio class="audio" controls preload="none" playsinline loop>
+                    <source src="Media/audio1.wav" type="audio/wav" />
+                    Your browser does not support the audio element.
+                </audio>
+                <div class="controls">
+                    <button class="btn play">▶ Play</button>
+                    <button class="btn secondary loop-toggle">🔁 Loop</button>
+                    <a
+                        class="btn secondary download-btn"
+                        download="Serene-Morning.wav"
+                        href="Media/audio1.wav"
+                        >⬇ Download WAV</a
+                    >
+                </div>
+            </article>
+
+            <article class="card fade-in" data-src="assets/deep-focus.mp3">
+                <div class="video-container">
+                    <video loop muted playsinline poster="image_f7752e.png">
+                        <source src="Media/video2.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="meta">
+                    <div class="thumb" aria-hidden="true"></div>
+                    <div>
+                        <div class="titleRow">
+                            <h3 class="t">Deep Focus</h3>
+                            <span class="tag">2:56 · Soft Piano</span>
+                        </div>
+                        <div class="tag">By Freelance Sounds</div>
+                    </div>
+                </div>
+                <audio class="audio" controls preload="none" playsinline loop>
+                    <source src="Media/audio2.wav" type="audio/mpeg" />
+                    Your browser does not support the audio element.
+                </audio>
+                <div class="controls">
+                    <button class="btn play">▶ Play</button>
+                    <button class="btn secondary loop-toggle">🔁 Loop</button>
+                    <a
+                        class="btn secondary download-btn"
+                        download="Audio2.wav"
+                        href="Media/audio2.wav"
+                        >⬇ Download WAV</a
+                    >
+                </div>
+            </article>
+
+            <article class="card fade-in" data-src="assets/rainy-window.mp3">
+                <div class="video-container">
+                    <video loop muted playsinline poster="image_f7752e.png">
+                        <source
+                            src="Media/video3.mp4"
+                            type="video/mp4"
+                        />
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="meta">
+                    <div class="thumb" aria-hidden="true"></div>
+                    <div>
+                        <div class="titleRow">
+                            <h3 class="t">Rainy Window</h3>
+                            <span class="tag">3:44 · Nature</span>
+                        </div>
+                        <div class="tag">By Freelance Sounds</div>
+                    </div>
+                </div>
+                <audio class="audio" controls preload="none" playsinline loop>
+                    <source src="Media/audio3.wav" type="audio/mpeg" />
+                    Your browser does not support the audio element.
+                </audio>
+                <div class="controls">
+                    <button class="btn play">▶ Play</button>
+                    <button class="btn secondary loop-toggle">🔁 Loop</button>
+                    <a
+                        class="btn secondary download-btn"
+                        download="Audio3.wav"
+                        href="Media/audio3.wav"
+                        >⬇ Download MP3</a
+                    >
+                </div>
+            </article>
+        </main>
+
+        <section id="about" class="wrap" style="padding-bottom: 80px">
+            <div class="card" style="padding: 24px">
+                <h3 class="t" style="margin: 0 0 8px">About</h3>
+                <p class="tag" style="margin: 0 0 12px">
+                    Royalty‑free calm music for freelancers and creators.
+                    Replace the <code>src</code> paths with your own MP3 files.
+                    The download buttons already point to the same source.
+                </p>
+                <ul class="tag" style="margin: 0 0 4px; line-height: 1.9">
+                    <li>
+                        Drop your <code>.mp3</code> files into an
+                        <code>assets/</code> folder (same level as this HTML).
+                    </li>
+                    <li>
+                        Update titles, durations, and filenames for each track
+                        card.
+                    </li>
+                    <li>
+                        All animations and effects are CSS‑only; audio uses
+                        native controls for maximum compatibility.
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <footer>
+            <div class="tiny">
+                © <span id="y"></span> Freelance Calm Music · Built with ♥
+            </div>
+        </footer>
+         <button class="scroll-top"><i class="fas fa-arrow-up"></i></button>
+
+        <script src="music.js" defer></script>
+    </body>
+</html>
