@@ -1,0 +1,905 @@
+/* CSS for page transition effect */
+body {
+    opacity: 0; /* Start hidden */
+    transition:
+        opacity 0.7s ease-in-out,
+        background-color 0.5s cubic-bezier(0.2, 0, 0, 1),
+        color 0.5s cubic-bezier(0.2, 0, 0, 1);
+    margin: 0;
+    font-family: 'Roboto', 'Inter', sans-serif;
+    background-color: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-background);
+    background-image: none;
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
+
+/* When the page is fully loaded */
+body.page-loaded {
+    opacity: 1;
+}
+
+/* When the page is leaving */
+body.page-leaving {
+    opacity: 0;
+}
+* {
+    box-sizing: border-box;
+}
+html,
+body {
+    height: 100%;
+}
+html {
+    scroll-behavior: smooth;
+}
+
+/* Header section styles */
+header {
+position: sticky;
+top: 0;
+width: 100%;
+max-width: 1200px;
+margin: 0 auto;
+padding: 15px 20px;
+z-index: 100;
+background-color: var(--md-sys-color-surface-container-low);
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+border-bottom-left-radius: var(--m3-shape-corner-xl);
+border-bottom-right-radius: var(--m3-shape-corner-xl);
+display: flex;
+justify-content: space-between;
+align-items: center;
+transition: background-color 0.5s cubic-bezier(0.2, 0, 0, 1),
+box-shadow 0.5s cubic-bezier(0.2, 0, 0, 1);
+}
+
+
+@media (max-width: 768px) {
+header {
+width: 100%;
+padding: 10px 15px;
+border-radius: 0;
+flex-direction: column;
+align-items: flex-start;
+}
+}
+
+
+@media (max-width: 480px) {
+header {
+padding: 8px 12px;
+border-radius: 0;
+}
+}
+.wrap {
+    max-width: fit-content;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+.brand {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    color: var(--md-sys-color-primary); /* Use M3 primary color */
+    text-decoration: none;
+    letter-spacing: -0.8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.brand-logo {
+    width: 42px; /* Slightly larger logo */
+    height: 42px;
+    border-radius: var(--m3-shape-corner-lg); /* M3 Large shape */
+    display: grid;
+    place-items: center;
+    background: linear-gradient(
+        135deg,
+        var(--md-sys-color-primary-container),
+        var(--md-sys-color-tertiary-container)
+    ); /* M3 inspired gradient */
+    border: 1px solid var(--md-sys-color-outline-variant);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition:
+        background 0.5s cubic-bezier(0.2, 0, 0, 1),
+        border-color 0.5s cubic-bezier(0.2, 0, 0, 1),
+        box-shadow 0.5s cubic-bezier(0.2, 0, 0, 1);
+}
+.brand-logo::before {
+    content: '🎵'; /* Music note emoji for Auralis */
+    font-weight: 800;
+    font-size: 22px; /* Slightly larger emoji */
+    color: var(--md-sys-color-on-primary-container); /* M3 on-primary-container */
+    text-shadow: 0 1px 10px rgba(255, 255, 255, 0.4);
+    transition: color 0.5s cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Main navigation links styling */
+nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+nav a.nav-link {
+    padding: 10px 18px; /* Increased padding */
+    border-radius: var(--m3-shape-corner-full); /* M3 Full shape for pill-like links */
+    font-size: 16px; /* Slightly larger font */
+    color: var(--md-sys-color-on-surface-variant); /* M3 on-surface-variant */
+    text-decoration: none;
+    transition:
+        color 0.3s cubic-bezier(0.2, 0, 0, 1),
+        background-color 0.3s cubic-bezier(0.2, 0, 0, 1);
+    position: relative;
+    z-index: 1;
+}
+nav a.nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px; /* Thicker underline */
+    background-color: var(--md-sys-color-primary); /* M3 primary color for underline */
+    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+    transform: translateX(-50%);
+    border-radius: 9999px;
+}
+nav a.nav-link:hover {
+    color: var(--md-sys-color-on-surface); /* M3 on-surface */
+    background-color: var(--md-sys-color-surface-container-high); /* Subtle background on hover */
+}
+nav a.nav-link:hover::before {
+    width: calc(100% - 24px); /* Extend underline more */
+}
+
+/* Call-to-action buttons styling in header */
+.cta-buttons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.cta-buttons .btn-action {
+    padding: 12px 26px; /* Increased padding */
+    border: none;
+    border-radius: var(--m3-shape-corner-full); /* M3 Full shape */
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Lighter shadow */
+}
+.cta-buttons .btn-auralis {
+    background-color: var(--md-sys-color-primary); /* Use M3 primary */
+    color: var(--md-sys-color-on-primary); /* Use M3 on-primary */
+    border: 1px solid var(--md-sys-color-primary);
+}
+.cta-buttons .btn-auralis:hover {
+    background-color: color-mix(
+        in srgb,
+        var(--md-sys-color-primary) 85%,
+        var(--md-sys-color-on-primary)
+    ); /* Slightly darker mix */
+    border-color: color-mix(
+        in srgb,
+        var(--md-sys-color-primary) 85%,
+        var(--md-sys-color-on-primary)
+    );
+    transform: translateY(-4px); /* More pronounced lift */
+    box-shadow: 0 8px 20px rgba(var(--md-sys-color-primary-rgb), 0.6); /* More intense shadow */
+}
+
+/* M3-style Toggle Button */
+.m3-toggle-button {
+    padding: 10px 18px;
+    border-radius: var(--m3-shape-corner-full);
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--md-sys-color-outline);
+    background-color: transparent;
+    color: var(--md-sys-color-on-surface-variant);
+    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+    white-space: nowrap; /* Prevent text wrapping */
+}
+.m3-toggle-button:hover {
+    background-color: var(--md-sys-color-surface-container-high);
+    color: var(--md-sys-color-on-surface);
+    border-color: var(--md-sys-color-outline);
+}
+
+/* Hero section styles */
+.hero {
+    text-align: center;
+    padding: 120px 40px 80px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.hero h1 {
+    margin: 0 0 20px;
+    font-size: clamp(48px, 7vw, 90px);
+    line-height: 1.05;
+    font-weight: 800;
+    color: var(--md-sys-color-on-background); /* M3 on-background */
+    text-shadow: 0 10px 40px rgba(0, 0, 0, 0.7); /* Deeper shadow for dark theme text */
+    transition: color 0.5s cubic-bezier(0.2, 0, 0, 1);
+}
+.hero p {
+    margin: 0 auto 40px;
+    color: var(--md-sys-color-on-surface-variant); /* M3 on-surface-variant */
+    font-size: clamp(18px, 2.5vw, 24px);
+    line-height: 1.5;
+    transition: color 0.5s cubic-bezier(0.2, 0, 0, 1);
+}
+.hero-buttons {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.hero-buttons .btn-hero {
+    padding: 16px 32px; /* Larger buttons */
+    border-radius: var(--m3-shape-corner-full); /* M3 Full shape */
+    font-size: 18px; /* Larger font */
+    font-weight: 700;
+    text-transform: none;
+    border: 1px solid transparent;
+    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+.hero-buttons .btn-hero:nth-child(1) {
+    /* "Explore Gallery" button style (Filled Button) */
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    border-color: var(--md-sys-color-primary);
+}
+.hero-buttons .btn-hero:nth-child(1):hover {
+    background-color: color-mix(
+        in srgb,
+        var(--md-sys-color-primary) 90%,
+        var(--md-sys-color-on-primary)
+    );
+    border-color: color-mix(
+        in srgb,
+        var(--md-sys-color-primary) 90%,
+        var(--md-sys-color-on-primary)
+    );
+    transform: translateY(-4px); /* More pronounced lift */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+.hero-buttons .btn-hero:nth-child(2) {
+    /* "Contact Us" button style (Outlined Button) */
+    background-color: transparent;
+    color: var(--md-sys-color-primary);
+    border-color: var(--md-sys-color-outline); /* M3 outline color */
+}
+.hero-buttons .btn-hero:nth-child(2):hover {
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    border-color: var(--md-sys-color-primary);
+    transform: translateY(-4px); /* More pronounced lift */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+.hero-buttons .btn-hero:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Portfolio grid and card styles */
+.grid {
+    display: grid;
+    gap: 30px; /* Increased gap */
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    padding: 50px 40px 100px;
+}
+@media (min-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+/* Adjust grid for smaller mobile screens */
+@media (max-width: 480px) {
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Smaller min-width for columns */
+        padding-left: 15px;
+        padding-right: 15px;
+        gap: 20px;
+    }
+}
+
+.card {
+    position: relative;
+    border-radius: var(--m3-shape-corner-xl); /* More rounded cards */
+    background-color: var(--md-sys-color-surface-container); /* M3 surface container */
+    border: 1px solid
+        var(--md-sys-color-outline-variant); /* M3 outline variant for border */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Lighter shadow for M3, more subtle in dark */
+    padding: 20px; /* Increased padding */
+    overflow: hidden;
+    transition:
+        transform 0.3s cubic-bezier(0.2, 0, 0, 1),
+        box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1),
+        background-color 0.3s cubic-bezier(0.2, 0, 0, 1),
+        border-color 0.3s cubic-bezier(0.2, 0, 0, 1);
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+}
+.card::after {
+    /* Remove pseudo-element radial gradient effect */
+    content: '';
+    background: none;
+}
+.card:hover {
+    transform: translateY(-10px) scale(1.03);
+    border-color: var(--md-sys-color-primary);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+.card .portfolio-img-container {
+    width: 100%;
+    padding-bottom: 70%;
+    position: relative;
+    margin-bottom: 20px; /* Increased margin */
+    border-radius: var(--m3-shape-corner-lg); /* M3 Large shape for image container */
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    transition:
+        border-radius 0.3s cubic-bezier(0.2, 0, 0, 1),
+        box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+/* Style for the video element inside portfolio-img-container */
+.card .portfolio-img-container .portfolio-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This makes the video act like a cover */
+    transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+.card .portfolio-img-container:hover .portfolio-video {
+    transform: scale(1.1); /* More pronounced video zoom on hover */
+}
+.meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    transition: color 0.5s cubic-bezier(0.2, 0, 0, 1);
+}
+.thumb {
+    width: 65px; /* Slightly larger thumb */
+    height: 65px;
+    border-radius: 50%;
+    flex: 0 0 auto;
+    background: linear-gradient(
+        135deg,
+        var(--md-sys-color-primary-container),
+        var(--md-sys-color-secondary-container)
+    ); /* M3 inspired gradient */
+    border: 1px solid var(--md-sys-color-outline-variant);
+    box-shadow:
+        inset 0 0 15px rgba(255, 255, 255, 0.08),
+        0 6px 18px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    transition:
+        background 0.5s cubic-bezier(0.2, 0, 0, 1),
+        border-color 0.5s cubic-bezier(0.2, 0, 0, 1),
+        box-shadow 0.5s cubic-bezier(0.2, 0, 0, 1);
+}
+.thumb::after {
+    content: '🎶'; /* Music note for the thumb icon */
+    font-weight: 800;
+    font-size: 26px;
+    color: var(--md-sys-color-on-primary-container);
+    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.5);
+    display: grid;
+    place-items: center;
+    height: 100%;
+    transition: color 0.5s cubic-bezier(0.2, 0, 0, 1);
+}
+.titleRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+.t {
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: 0.1px;
+    font-size: 1.4em;
+    color: var(--md-sys-color-on-surface);
+    transition: color 0.5s cubic-bezier(0.2, 0, 0, 1);
+}
+.tag {
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: 14px;
+    transition: color 0.5s cubic-bezier(0.2, 0, 0, 1);
+} /* Slightly larger tag font */
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+} /* Increased margin, allow wrap */
+.btn {
+    appearance: none;
+    border: none;
+    margin-top: 5px;
+    cursor: pointer;
+    position: relative;
+    padding: 12px 20px; /* Increased padding */
+    border-radius: var(--m3-shape-corner-full); /* M3 Full shape */
+    font-weight: 600;
+    color: var(--md-sys-color-primary); /* Use primary for text buttons */
+    background: transparent; /* Text button style */
+    border: 1px solid var(--md-sys-color-outline); /* Outlined button style */
+    box-shadow: none;
+    overflow: hidden;
+    transition:
+        transform 0.2s cubic-bezier(0.2, 0, 0, 1),
+        box-shadow 0.2s cubic-bezier(0.2, 0, 0, 1),
+        background 0.3s cubic-bezier(0.2, 0, 0, 1),
+        border-color 0.3s cubic-bezier(0.2, 0, 0, 1),
+        color 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+.btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--md-sys-color-primary);
+    background: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    box-shadow: 0 2px 10px rgba(var(--md-sys-color-primary-rgb), 0.3);
+}
+.btn:active {
+    transform: translateY(0) scale(0.98);
+} /* More pronounced active state */
+.download-btn {
+    background-color: var(--md-sys-color-secondary); /* Use secondary color for download */
+    color: var(--md-sys-color-on-secondary);
+    border: 1px solid var(--md-sys-color-secondary);
+    box-shadow: 0 5px 15px rgba(var(--md-sys-color-secondary-rgb), 0.5);
+    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1); /* Add transition for download button */
+    margin: 5px;
+}
+.download-btn:hover {
+    background-color: color-mix(
+        in srgb,
+        var(--md-sys-color-secondary) 90%,
+        var(--md-sys-color-on-secondary)
+    );
+    border-color: color-mix(
+        in srgb,
+        var(--md-sys-color-secondary) 90%,
+        var(--md-sys-color-on-secondary)
+    );
+    box-shadow: 0 8px 20px rgba(var(--md-sys-color-secondary-rgb), 0.6);
+    transform: translateY(-2px); /* Lift on hover */
+}
+.description-toggle {
+    background-color: transparent;
+    color: var(--md-sys-color-primary);
+    border: none; /* Text button style */
+    box-shadow: none;
+    padding: 15px 0;
+    border-radius: var(--m3-shape-corner-full);
+    font-weight: 100;
+    text-align: left;
+    transition:
+        background-color 0.4s cubic-bezier(0.2, 0, 0, 1),
+        color 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+.description-toggle:hover {
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    border: none;
+    box-shadow: none;
+}
+
+/* Keyframe animation for fade-in effect */
+.fade-in {
+    opacity: 0;
+    transform: translateY(15px);
+    animation: fade-up-in 0.8s cubic-bezier(0.2, 0, 0, 1) forwards;
+} /* Adjusted animation */
+.fade-in:nth-child(1) {
+    animation-delay: 0.1s;
+}
+.fade-in:nth-child(2) {
+    animation-delay: 0.18s;
+}
+.fade-in:nth-child(3) {
+    animation-delay: 0.26s;
+}
+.fade-in:nth-child(4) {
+    animation-delay: 0.34s;
+}
+@keyframes fade-up-in {
+    to {
+        opacity: 1;
+        transform: none;
+    }
+} /* New keyframe for subtle upward motion */
+
+/* --- Custom Audio Player Styles --- */
+.custom-audio-player {
+    background-color: var(--md-sys-color-surface-container-high);
+    border-radius: var(--m3-shape-corner-full); /* Pill shape */
+    padding: 8px 15px; /* Adjust padding */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center items */
+    gap: 15px; /* Adjust gap between buttons */
+    max-width: fit-content; /* Allow player to size to content */
+    margin: 0 auto; /* Center the player itself */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.4s cubic-bezier(0.2, 0, 0, 1);
+    width: 100%; /* Make it span full width within its container */
+    max-width: 400px; /* Optional: Limit max width for better aesthetic */
+}
+
+/* Ensure play button is sized correctly */
+.custom-play-button {
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    border-radius: var(--m3-shape-corner-full); /* Full rounded for pill-like buttons */
+    width: 48px; /* Standard size */
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px; /* Larger icon */
+    line-height: 1;
+    padding: 5px;
+    margin: 5px;
+    flex-shrink: 0; /* Prevent shrinking */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    transition: all 0.2s cubic-bezier(0.2, 0, 0, 1); /* Smooth transition */
+}
+
+.custom-play-button:hover {
+    background-color: color-mix(in srgb, var(--md-sys-color-primary) 90%, var(--md-sys-color-on-primary));
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+}
+.custom-play-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Progress bar styles */
+.progress-bar-container {
+    height: 15px; /* Thicker progress bar */
+    background: var(--md-sys-color-outline-variant); /* Background for the progress bar track */
+    border-radius: 18px; /* More rounded corners */
+    position: relative;
+    cursor: pointer;
+    flex-grow: 1; /* Allow it to take available space */
+    margin: 0 10px; /* Add some margin around the progress bar */
+}
+
+.progress-bar-filled {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%; /* Initial width */
+    /* Updated background for wavy effect and pink/white color */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0,5 C25,0 25,10 50,5 C75,0 75,10 100,5" stroke="%23FFFFFF" stroke-width="4" fill="none"/></svg>'); /* White wavy line */
+    background-size: 28px 100%; /* Adjust size for wave repetition and frequency */
+    background-repeat: repeat-x; /* Repeat horizontally */
+    background-position-y: center; /* Center the wave vertically */
+    transition: width 0.1s linear; /* Smooth fill animation */
+    border-radius: 20px; /* Keep rounded ends */
+    background-color: transparent; /* Make sure no solid background color interferes */
+}
+
+
+.progress-bar-thumb {
+    width: 10px; /* Wider vertical line */
+    height: 24px; /* Taller height for thumb */
+    background-color: #E91E63; /* Pink color for the thumb */
+    border-radius: 10px; /* More rounded ends for the line, like a pill shape */
+    position: absolute;
+    left: 0%; /* Initial position */
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: left 0.1s linear, transform 0.1s linear, background-color 0.3s cubic-bezier(0.2, 0, 0, 1);
+    z-index: 1; /* Ensure thumb is above the filled bar */
+    pointer-events: none; /* Allow click events to pass through to the container */
+}
+.progress-bar-container:active .progress-bar-thumb {
+    transform: translate(-50%, -50%) scale(1.0); /* No scale change, just maintain vertical line */
+}
+
+/* Remove default audio player styles */
+.audio {
+    display: none; /* Hide the native audio element */
+}
+.audio::-webkit-media-controls-panel,
+.audio::-webkit-media-controls-play-button,
+.audio::-webkit-media-controls-timeline,
+.audio::-webkit-media-controls-current-time-display,
+.audio::-webkit-media-controls-time-remaining-display {
+    display: none;
+    -webkit-appearance: none;
+}
+
+.loop-toggle.active {
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+    border-color: var(--md-sys-color-secondary);
+    box-shadow: 0 2px 10px rgba(var(--md-sys-color-secondary-rgb), 0.3);
+}
+@media (max-width: 768px) {
+    .wrap {
+        padding-left: 20px;
+        padding-right: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        width: 100%;
+        margin-top: 20px;
+    }
+    nav a.nav-link {
+        width: 100%;
+        text-align: center;
+    }
+        .hero {
+        padding: 80px 20px 60px;
+    }
+    .hero h1 {
+        font-size: clamp(36px, 10vw, 60px);
+    }
+    .hero p {
+        font-size: clamp(16px, 3vw, 20px);
+    }
+    .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .hero-buttons .btn-hero {
+        width: 90%;
+        max-width: 300px;
+        text-align: center;
+    }
+      .cta-buttons {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        margin-top: 15px;
+    }
+    .cta-buttons .btn-action {
+        width: 100%;
+        text-align: center;
+    }
+
+}
+/* Media queries for responsiveness */
+@media (max-width: 768x) {
+
+  
+    .grid {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .flex.items-center.gap-4 {
+        /* Adjust the dynamic color/theme switch area */
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        margin-top: 15px;
+        gap: 10px;
+    }
+    .flex.items-center.gap-4 label {
+        width: 100%;
+        text-align: left;
+    }
+    .flex.items-center.gap-4 #theme-picker,
+    .flex.items-center.gap-4 #theme-toggle-button {
+        width: 100%;
+        max-width: none; /* Remove max-width for full width */
+        text-align: center;
+    }
+
+    /* Adjust custom audio player for smaller screens */
+    .custom-audio-player {
+        flex-wrap: wrap; /* Allow items to wrap */
+        justify-content: center; /* Center items for tighter layout */
+        padding: 8px 10px;
+        gap: 8px; /* Slightly reduced gap */
+        width: 90%; /* Make it span full width */
+        max-width: 90%; /* Ensure it doesn't overflow */
+    }
+    .custom-play-button {
+        width: 44px; /* Slightly smaller play button */
+        height: 44px;
+        font-size: 18px; /* Slightly smaller icon */
+    }
+
+    .progress-bar-container {
+        margin: 0 5px; /* Reduce margin on smaller screens */
+        height: 10px; /* Thinner progress bar on mobile */
+        border-radius: 12px; /* More rounded on mobile */
+    }
+
+    .progress-bar-filled {
+        background-size: 20px 100%; /* Smaller wave frequency on mobile */
+        border-radius: 14px; /* More rounded on mobile */
+    }
+
+    .progress-bar-thumb {
+        width: 6px; /* Smaller width for thumb on mobile */
+        height: 18px; /* Shorter height on mobile */
+        border-radius: 3px; /* Smaller rounded ends for the line on mobile */
+    }
+
+    .audio-player-wrapper .flex.gap-2.justify-end {
+        justify-content: center; /* Center the loop and download buttons */
+        flex-wrap: wrap; /* Allow buttons to wrap */
+    }
+    .audio-player-wrapper .flex.gap-2.justify-end .btn {
+        padding: 8px 15px; /* Smaller padding for buttons */
+        font-size: 0.9em; /* Smaller font for buttons */
+    }
+}
+
+/* Media query for even smaller screens (e.g., 320px width) */
+@media (max-width: 320x) {
+    .custom-audio-player {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+        padding: 5px 8px;
+    }
+    .custom-play-button {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+    }
+    .progress-bar-container {
+        height: 8px; /* Even thinner progress bar */
+        border-radius: 10px; /* Even more rounded on very small mobile */
+    }
+    .progress-bar-filled {
+        background-size: 15px 100%; /* Even smaller wave frequency on very small mobile */
+        border-radius: 12px; /* Even more rounded on very small mobile */
+    }
+    .progress-bar-thumb {
+        width: 4px; /* Even thinner vertical line */
+        height: 14px; /* Even shorter height on very small mobile */
+        border-radius: 2px; /* Even smaller rounded ends for the line on very small mobile */
+    }
+}
+
+
+/* Social links styling in footer */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 40px 0 50px;
+    position: relative;
+    bottom: 20px;
+}
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px; /* Slightly larger icon */
+    height: 60px;
+    border-radius: var(--m3-shape-corner-full);
+    color: var(--md-sys-color-primary); /* M3 primary color */
+    font-size: 1.6rem; /* Slightly larger font */
+    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25); /* Lighter shadow */
+    background: var(--md-sys-color-surface-container-high); /* M3 surface container high */
+    border: 1px solid var(--md-sys-color-outline-variant);
+}
+.social-icon:hover {
+    transform: translateY(-8px) scale(1.12);
+    border-color: var(--md-sys-color-primary);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+/* Specific hover effects for each social icon */
+#ins:hover {
+    background: var(--md-sys-color-tertiary);
+    color: var(--md-sys-color-on-tertiary);
+    box-shadow: 0 8px 20px rgba(var(--md-sys-color-tertiary-rgb), 0.5);
+}
+#git:hover {
+    background: var(--md-sys-color-on-surface);
+    color: var(--md-sys-color-inverse-on-surface);
+    box-shadow: 0 8px 20px rgba(var(--md-sys-color-on-surface-rgb), 0.5);
+}
+#link:hover {
+    background: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    box-shadow: 0 8px 20px rgba(var(--md-sys-color-primary-rgb), 0.5);
+}
+#pint:hover {
+    background: var(--md-sys-color-secondary);
+    color: var(--md-sys-color-on-secondary);
+    box-shadow: 0 8px 20px rgba(var(--md-sys-color-secondary-rgb), 0.5);
+}
+
+/* Scroll-to-top button styles */
+.scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--md-sys-color-primary); /* M3 primary color */
+    color: var(--md-sys-color-on-primary);
+    border: none;
+    border-radius: var(--m3-shape-corner-full);
+    width: 60px; /* Slightly larger */
+    height: 60px;
+    font-size: 28px; /* Larger icon */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 0.3s cubic-bezier(0.2, 0, 0, 1),
+        visibility 0.3s cubic-bezier(0.2, 0, 0, 1),
+        transform 0.3s cubic-bezier(0.2, 0, 0, 1),
+        background-color 0.3s cubic-bezier(0.2, 0, 0, 1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    z-index: 100;
+}
+.scroll-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+.scroll-top:hover {
+    transform: translateY(-6px); /* More pronounced lift */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+    background-color: color-mix(
+        in srgb,
+        var(--md-sys-color-primary) 90%,
+        var(--md-sys-color-on-primary)
+    );
+}
+.scroll-top:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Remove old music.css specific styles */
+.bg-blob,
+.bg-blob:nth-child(2) {
+    display: none;
+} /* Hide old background blobs */
+.pillbar,
+.pill {
+    display: none;
+} /* Hide old pillbar */
+
+/* Remove old nav styles as they are replaced by the new header nav */
+#nav1,
+.nav-button,
+.music-btn,
+.photos-btn {
+    display: none;
+}
