@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI/UX Design Feedback</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tone.js for audio -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+
+    <style>
+        /* Custom styles for the page */
+        html, body {
+            height: 100%;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Animated gradient background */
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        /* Keyframes for the background animation */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Style for the glassmorphism effect on the form card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Custom transition for interactive elements */
+        .hover-effect {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .hover-effect:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen text-gray-800 p-4">
+
+    <!-- Audio Control & Modal -->
+    <div id="audio-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+        <div class="text-center p-4">
+            <h2 class="text-2xl font-bold text-white mb-4">Welcome</h2>
+            <p class="text-gray-300 mb-6">This page includes calming background music.<br>Click below to enable audio and enter.</p>
+            <button id="play-music-btn" class="bg-indigo-500 text-white font-bold py-3 px-6 rounded-lg hover-effect focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-75">
+                Enter with Music
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Feedback Form Container -->
+    <div id="main-content" class="w-[90%] max-w-lg p-6 sm:p-8 space-y-4 sm:space-y-6 rounded-2xl glass-card shadow-2xl hidden my-auto">
+        <div class="text-center">
+            <h1 class="text-2xl sm:text-3xl font-bold text-white">Share Your Feedback</h1>
+            <p class="text-gray-200 mt-2 text-sm sm:text-base">We'd love to hear your thoughts on the new design!</p>
+        </div>
+
+        <!-- Feedback Form - Updated to use your specific Formspree endpoint -->
+        <form action="https://formspree.io/f/manboeke" method="POST" class="space-y-4">
+            <div>
+                <label for="user_name" class="text-sm font-medium text-gray-100">Full Name</label>
+                <input type="text" name="name" id="user_name" placeholder="John Doe" required class="w-full px-4 py-2 mt-2 bg-white bg-opacity-20 border border-transparent rounded-lg text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all duration-300">
+            </div>
+            <div>
+                <label for="user_email" class="text-sm font-medium text-gray-100">Email Address</label>
+                <!-- IMPORTANT: Formspree uses a special '_replyto' field for the sender's email -->
+                <input type="email" name="_replyto" id="user_email" placeholder="you@example.com" required class="w-full px-4 py-2 mt-2 bg-white bg-opacity-20 border border-transparent rounded-lg text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all duration-300">
+            </div>
+            <div>
+                <label for="message" class="text-sm font-medium text-gray-100">Your Feedback</label>
+                <textarea name="message" id="message" rows="4" placeholder="The new design is amazing! I especially love..." required class="w-full px-4 py-2 mt-2 bg-white bg-opacity-20 border border-transparent rounded-lg text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all duration-300"></textarea>
+            </div>
+            <div>
+                <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover-effect focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75">
+                    Send Feedback
+                </button>
+            </div>
+        </form>
+        
+        <!-- Success/Error Message Box - Not directly used by Formspree for submission status -->
+        <div id="message-box" class="hidden p-4 rounded-lg text-center font-medium"></div>
+
+    </div>
+
+    <script>
+        // --- Calm Background Music using Tone.js ---
+        function playBackgroundMusic() {
+            // Create a synth with a soft, ambient sound
+            const synth = new Tone.PolySynth(Tone.Synth, {
+                oscillator: { type: 'fatsine' },
+                envelope: {
+                    attack: 2,
+                    decay: 1,
+                    sustain: 0.4,
+                    release: 4
+                }
+            }).toDestination();
+            
+            // Add a reverb effect for a more spacious feel
+            const reverb = new Tone.Reverb({
+                decay: 8,
+                wet: 0.6
+            }).toDestination();
+            synth.connect(reverb);
+
+            // A longer, more developed chord progression (I-V-vi-IV in C Major)
+            const chords = [
+                ['C4', 'E4', 'G4', 'B4'], // Cmaj7
+                ['G3', 'B3', 'D4'],      // G
+                ['A3', 'C4', 'E4', 'G4'], // Am7
+                ['F3', 'A3', 'C4', 'E4']  // Fmaj7
+            ];
+
+            // Loop the melody, playing one chord per measure
+            let chordIndex = 0;
+            const loop = new Tone.Loop(time => {
+                const chord = chords[chordIndex % chords.length];
+                synth.triggerAttackRelease(chord, '1m', time); // Play each chord for one measure
+                chordIndex++;
+            }, '1m').start(0);
+
+            // Set the overall volume and start the transport
+            Tone.Transport.bpm.value = 70; // Slightly faster tempo
+            Tone.Destination.volume.value = -12; // Lower volume for background music
+            Tone.Transport.start();
+        }
+
+        // --- DOM Elements ---
+        const audioModal = document.getElementById('audio-modal');
+        const playMusicBtn = document.getElementById('play-music-btn');
+        const mainContent = document.getElementById('main-content');
+        // Removed feedbackForm and messageBox related JS for submission as Formspree handles it directly via HTML form action
+        // The messageBox can still be used for other UI messages if needed.
+
+        // --- Event Listeners ---
+        playMusicBtn.addEventListener('click', () => {
+            // Start audio context and play music
+            Tone.start().then(() => {
+                playBackgroundMusic();
+                // Hide modal and show main content
+                audioModal.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+            });
+        });
+
+        // The EmailJS specific form submission listener is removed.
+        // Formspree handles submission directly via the 'action' attribute.
+        // The browser will handle the redirect/success page from Formspree.
+
+    </script>
+</body>
+</html>
