@@ -33,4 +33,4 @@ Technology Stack :
   
   * CSS3
   
-  * avaScript (ES6+)
+  * JavaScript (ES6+)
